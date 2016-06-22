@@ -49,6 +49,7 @@ public class StatePatternPlayer : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        
         m_sizeOfPlayer = m_sr.sprite.rect.size / m_sr.sprite.pixelsPerUnit;
         m_currentState.UpdateState();
         Debug.DrawLine(m_transform.position, m_transform.position+Vector3.down * 2 );

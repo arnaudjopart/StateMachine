@@ -16,7 +16,7 @@ public class WalkingState : IState {
 
         if( hit.collider == null )
         {
-            Debug.Log( "On Ground" );
+            
             ToFallingState();
         }
 
@@ -61,7 +61,9 @@ public class WalkingState : IState {
     }
     public void ToFallingState()
     {
+        
         m_player.m_currentState = m_player.m_fallingState;
+
     }
 
     #region Private Members
