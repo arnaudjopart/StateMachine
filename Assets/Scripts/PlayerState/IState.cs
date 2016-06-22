@@ -8,5 +8,6 @@ public interface IState {
     void ToJumpState();
     void ToDuckState();
     void ToDiveState();
+    void ToFallingState();
 	
 }

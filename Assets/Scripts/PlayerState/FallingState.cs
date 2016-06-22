@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JumpingState : IState {
+public class FallingState : IState {
 
     public StatePatternPlayer m_player;
-    
 
-    public JumpingState(StatePatternPlayer _player)
+    public FallingState(StatePatternPlayer _player)
     {
         m_player = _player;
     }
@@ -14,20 +13,16 @@ public class JumpingState : IState {
     public void UpdateState()
     {
         RaycastHit2D hit = Physics2D.Raycast(m_player.m_transform.position,Vector2.down,.1f,m_player.m_maskMe);
-        
-        if( hit.collider != null && m_player.m_rb2D.velocity.y<0 )
+
+        if( hit.collider != null && m_player.m_rb2D.velocity.y < 0 )
         {
             Debug.Log( "On Ground" );
             ToWalkState();
         }
-        if( Input.GetKeyDown( KeyCode.DownArrow ) )
-        {
-            ToDiveState();
-        }
     }
     public void ToJumpState()
     {
-        Debug.Log( "Do nothing" );
+
     }
     public void ToWalkState()
     {
@@ -35,16 +30,14 @@ public class JumpingState : IState {
     }
     public void ToDiveState()
     {
-        Debug.Log( "Dive" );
-        m_player.m_rb2D.AddForce( Vector2.down * 10, ForceMode2D.Impulse );
-        m_player.m_currentState = m_player.m_diveState;
+        Debug.Log( "Do nothing" );
     }
     public void ToDuckState()
     {
-        
+        Debug.Log( "Do nothing" );
     }
-    #region Private Members
-    
-    #endregion  
+    public void ToFallingState()
+    {
 
+    }
 }

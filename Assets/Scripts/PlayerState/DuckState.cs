@@ -35,4 +35,8 @@ public class DuckState : IState {
     {
         Debug.Log( "Do nothing" );
     }
+    public void ToFallingState()
+    {
+
+    }
 }

@@ -9,6 +9,7 @@ public class StatePatternPlayer : MonoBehaviour {
     public JumpingState m_jumpingState;
     public DiveState m_diveState;
     public DuckState m_duckState;
+    public FallingState m_fallingState;
 
     public IState m_currentState;
 
@@ -40,6 +41,7 @@ public class StatePatternPlayer : MonoBehaviour {
         m_jumpingState = new JumpingState( this );
         m_duckState = new DuckState( this );
         m_diveState = new DiveState( this );
+        m_fallingState = new FallingState( this );
 
         m_currentState = m_jumpingState;
     }
@@ -49,12 +51,27 @@ public class StatePatternPlayer : MonoBehaviour {
     {
         m_currentState.UpdateState();
         Debug.DrawLine(m_transform.position, m_transform.position+Vector3.down * 2 );
+        CheckScreenLimits();
+    }
+
+    #endregion
+
+    #region Utils
+
+    private void CheckScreenLimits()
+    {
+        Vector2 sizeOfPlayer = m_sr.sprite.rect.size/m_sr.sprite.pixelsPerUnit;
+        bool isPlayerOutOfScreen =  Mathf.Abs( m_transform.position.x ) + sizeOfPlayer.x*.5f > CameraManager.Limits.x;
+        if( isPlayerOutOfScreen )
+        {
+            print( "Out of Screen" );
+        }
     }
 
     #endregion
 
     #region Private Members
 
-    
+
     #endregion
 }

@@ -51,6 +51,10 @@ public class WalkingState : IState {
         m_player.m_currentState = m_player.m_duckState;
         m_player.m_animator.SetBool( "IsDucking", true );
     }
+    public void ToFallingState()
+    {
+
+    }
 
     #region Private Members
     private StatePatternPlayer m_player;

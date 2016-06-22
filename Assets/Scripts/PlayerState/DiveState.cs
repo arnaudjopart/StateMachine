@@ -36,4 +36,8 @@ public class DiveState : IState {
     {
         Debug.Log( "Do nothing" );
     }
+    public void ToFallingState()
+    {
+
+    }
 }
