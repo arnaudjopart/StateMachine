@@ -12,6 +12,14 @@ public class WalkingState : IState {
 
     public void UpdateState()
     {
+        RaycastHit2D hit = Physics2D.Raycast(m_player.m_transform.position,Vector2.down,.1f,m_player.m_maskMe);
+
+        if( hit.collider == null )
+        {
+            Debug.Log( "On Ground" );
+            ToFallingState();
+        }
+
         float xDirection = Input.GetAxis("Horizontal");
         if( Mathf.Abs( xDirection )>0.1f )
         {
@@ -53,7 +61,7 @@ public class WalkingState : IState {
     }
     public void ToFallingState()
     {
-
+        m_player.m_currentState = m_player.m_fallingState;
     }
 
     #region Private Members
