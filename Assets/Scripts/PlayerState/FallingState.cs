@@ -12,11 +12,31 @@ public class FallingState : IState {
 
     public void UpdateState()
     {
+        float xDirection = Input.GetAxis("Horizontal");
+        if( Mathf.Abs( xDirection ) > 0.1f )
+        {
+            m_player.m_sr.flipX = xDirection < 0 ? true : false;
+        }
+
+        Vector3 jumpVelocity = new Vector3(xDirection*3,m_player.m_rb2D.velocity.y,0);
+        m_player.m_rb2D.velocity = jumpVelocity;
+
+
         RaycastHit2D hit = Physics2D.Raycast(m_player.m_transform.position,Vector2.down,.1f,m_player.m_maskMe);
 
         if( hit.collider != null && m_player.m_rb2D.velocity.y < 0 )
         {
-            Debug.Log( "On Ground" );
+            if( m_player.gameObject.name == "Tim" )
+            {
+                Debug.Log( "On Ground" );
+
+                m_player.m_transform.SetParent( hit.collider.transform.parent, false );
+                Vector3 localPosition = m_player.m_transform.position-hit.collider.transform.parent.position;
+                m_player.m_transform.position = localPosition;
+
+            }
+            
+
             ToWalkState();
         }
     }

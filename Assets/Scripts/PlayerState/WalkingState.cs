@@ -24,8 +24,6 @@ public class WalkingState : IState {
         if( Mathf.Abs( xDirection )>0.1f )
         {
             m_player.m_sr.flipX = xDirection < 0 ? true:false;
-
-
         }
         m_player.m_animator.SetFloat( "IsRunning", Mathf.Abs( xDirection ) );
         Vector3 direction = new Vector3(xDirection,0,0);
@@ -42,7 +40,19 @@ public class WalkingState : IState {
     }
     public void ToJumpState()
     {
-        m_player.m_rb2D.AddForce( Vector2.up * 10, ForceMode2D.Impulse );
+        if( m_player.gameObject.name == "Tim" )
+        {
+
+            m_player.m_rb2D.AddForce( Vector2.up * 10, ForceMode2D.Impulse );
+            Vector3 Worldposition = m_player.m_transform.position;
+            //Debug.Log( m_player.m_transform.position );
+
+            m_player.m_transform.SetParent( m_player.m_transform.parent.parent, false );
+            m_player.m_transform.position = Worldposition;
+        }
+
+        
+        
         m_player.m_currentState = m_player.m_jumpingState;
     }
     public void ToWalkState()
@@ -61,7 +71,18 @@ public class WalkingState : IState {
     }
     public void ToFallingState()
     {
+        if( m_player.gameObject.name == "Tim" )
+        {
+            m_player.m_rb2D.AddForce( Vector2.up * 10, ForceMode2D.Impulse );
+            Vector3 Worldposition = m_player.m_transform.position;
+            //Debug.Log( m_player.m_transform.position );
+
+            m_player.m_transform.SetParent( m_player.m_transform.parent.parent, false );
+            m_player.m_transform.position = Worldposition;
+        }
         
+
+
         m_player.m_currentState = m_player.m_fallingState;
 
     }

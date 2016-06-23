@@ -14,7 +14,17 @@ public class JumpingState : IState {
     public void UpdateState()
     {
 
-        //bool isFalling = Mathf.Abs(m_player.m_rb2D.velocity.y)<0.05f && m_ySpeedOfPreviousFrame>0;
+        float xDirection = Input.GetAxis("Horizontal");
+        if( Mathf.Abs( xDirection ) > 0.1f )
+        {
+            m_player.m_sr.flipX = xDirection < 0 ? true : false;
+
+
+        }
+        
+        Vector3 jumpVelocity = new Vector3(xDirection*3,m_player.m_rb2D.velocity.y,0);
+        m_player.m_rb2D.velocity = jumpVelocity;
+
         bool isFalling = m_player.m_rb2D.velocity.y<-0.05f ;
         
         if( isFalling )
@@ -23,10 +33,9 @@ public class JumpingState : IState {
         }
 
         RaycastHit2D hit = Physics2D.Raycast(m_player.m_transform.position,Vector2.down,.1f,m_player.m_maskMe);
-
         if( hit.collider != null && m_player.m_rb2D.velocity.y < 0 )
         {
-            Debug.Log( "On Ground" );
+            //Debug.Log( "On Ground" );
             ToWalkState();
         }
         if( Input.GetKeyDown( KeyCode.DownArrow ) )
@@ -56,7 +65,8 @@ public class JumpingState : IState {
 
     public void ToFallingState()
     {
-
+        Debug.Log( "is falling" );
+        m_player.m_currentState = m_player.m_fallingState;
     }
     #region Private Members
 

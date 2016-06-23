@@ -29,6 +29,10 @@ public class StatePatternPlayer : MonoBehaviour {
 
     #region Main Methods
 
+    void OnGUI()
+    {
+        
+    }
     void Start()
     {
 
